@@ -39,12 +39,19 @@ public class CustomerCheckIn extends javax.swing.JFrame {
         jTextField8.setText("");
         bed=(String)jComboBox2.getSelectedItem();
         roomType=(String)jComboBox3.getSelectedItem();
+        System.out.println("bed" + bed + " roomType"+roomType);
+        int count=0;
         try
         {
             ResultSet rs=Select.getData("select *from room where bed='"+bed+"' and roomType='"+roomType+"' and status='Not Booked'");
             while(rs.next())
             {
                 jComboBox4.addItem(rs.getString(1));
+                count+=1;            
+            }
+            System.out.println("count "+count);
+            if(count == 0){
+                JOptionPane.showMessageDialog(null, "cannot be found");
             }
         }
         catch(Exception e)

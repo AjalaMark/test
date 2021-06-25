@@ -2,6 +2,7 @@ import project.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -77,6 +78,11 @@ public class manageRoom extends javax.swing.JFrame {
                 "Room Number", "Room Type", "Bed", "Price", "Status"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 79, 570, -1));
@@ -163,6 +169,29 @@ public class manageRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_formComponentShown
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here
+        int index=jTable1.getSelectedRow();
+        TableModel model=jTable1.getModel();
+        String id=model.getValueAt(index, 0).toString();
+        System.out.println("id "+id);
+        try 
+        {
+            
+            int a=JOptionPane.showConfirmDialog(null, "are you sure you want to delete room "+id+"","Select", JOptionPane.YES_NO_OPTION);
+            if (a==0)
+            {
+                InsertUpdateDelete.setData("delete from room where roomNumber=" +id+";", "successfully deleted");
+                setVisible(false);
+                new manageRoom().setVisible(true);
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
