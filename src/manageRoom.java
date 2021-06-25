@@ -175,22 +175,29 @@ public class manageRoom extends javax.swing.JFrame {
         int index=jTable1.getSelectedRow();
         TableModel model=jTable1.getModel();
         String id=model.getValueAt(index, 0).toString();
+        String status=model.getValueAt(index, 4).toString();
         System.out.println("id "+id);
-        try 
+        if(!status.equals("Not Booked")){
+            JOptionPane.showMessageDialog(null, "Cannot delete occupied room");
+        }else
         {
-            
-            int a=JOptionPane.showConfirmDialog(null, "are you sure you want to delete room "+id+"","Select", JOptionPane.YES_NO_OPTION);
-            if (a==0)
+             try 
             {
-                InsertUpdateDelete.setData("delete from room where roomNumber=" +id+";", "successfully deleted");
-                setVisible(false);
-                new manageRoom().setVisible(true);
+
+                int a=JOptionPane.showConfirmDialog(null, "are you sure you want to delete room "+id+"","Select", JOptionPane.YES_NO_OPTION);
+                if (a==0)
+                {
+                    InsertUpdateDelete.setData("delete from room where roomNumber=" +id+";", "successfully deleted");
+                    setVisible(false);
+                    new manageRoom().setVisible(true);
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }
+       
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

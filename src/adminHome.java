@@ -204,24 +204,44 @@ public class adminHome extends javax.swing.JFrame {
         TableModel model=jTable1.getModel();
         String email=model.getValueAt(index, 1).toString();
         String status=model.getValueAt(index, 4).toString();
-        if(status.equals("true"))
-            status="false";
-        else
-            status="true";
-        try
-        {
-            int a=JOptionPane.showConfirmDialog(null, "Do you want to change the status of "+email+"","Select",JOptionPane.YES_NO_OPTION);
-            if(a==0)
+        
+            try 
             {
-                InsertUpdateDelete.setData("update users set status='"+status+"' where email='"+email+"'", "Status changed Successfully");
-                setVisible(false);
-                new adminHome().setVisible(true);
+
+                int a=JOptionPane.showConfirmDialog(null, "Do you want to delete the user "+email+"","Select", JOptionPane.YES_NO_OPTION);
+                if (a==0)
+                {
+                    InsertUpdateDelete.setData("delete from users where email='"+email+"'", "successfully deleted");
+                    setVisible(false);
+                    new adminHome().setVisible(true);
+                }
+                else
+                {
+                    if(status.equals("true"))
+                    status="false";
+                    else
+                    status="true";
+                    try
+                    {
+                        int b=JOptionPane.showConfirmDialog(null, "Do you want to change the status of "+email+"","Select",JOptionPane.YES_NO_OPTION);
+                        if(b==0)
+                        {
+                            InsertUpdateDelete.setData("update users set status='"+status+"' where email='"+email+"'", "Status changed Successfully");
+                            setVisible(false);
+                            new adminHome().setVisible(true);
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }
             }
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e);
+            }
+         
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

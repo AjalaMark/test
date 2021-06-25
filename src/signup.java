@@ -1,6 +1,8 @@
 
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import project.InsertUpdateDelete;
+import project.Select;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -159,15 +161,39 @@ public class signup extends javax.swing.JFrame {
         String securityQuestion=(String)jComboBox1.getSelectedItem();
         String answer=jTextField3.getText();
         String address=jTextField4.getText();
+       
+        
         if(name.equals("") || email.equals("") || password.equals("") || answer.equals("") || address.equals(""))
             JOptionPane.showMessageDialog(null, "Every Field is Required");
+        
         else
         {
-            String Query;
-            Query="insert into users values('"+name+"','"+email+"','"+password+"','"+securityQuestion+"','"+answer+"','"+address+"','false')";
-            InsertUpdateDelete.setData(Query, "Registered Successfully");
-            setVisible(false);
-            new signup().setVisible(true);
+            String checkIfExists = "select *from users where email='"+email+"'";
+            int count = 0;
+            try{
+                ResultSet rs=Select.getData(checkIfExists);
+       
+                while(rs.next())
+                {
+                    count++;
+                }
+                if(count>0)
+                {
+                    JOptionPane.showMessageDialog(null, "User already exists");
+                }
+                else
+                {
+                    String Query;
+                    Query="insert into users values('"+name+"','"+email+"','"+password+"','"+securityQuestion+"','"+answer+"','"+address+"','false')";
+                    InsertUpdateDelete.setData(Query, "Registered Successfully");
+                    setVisible(false);
+                    new signup().setVisible(true);
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
