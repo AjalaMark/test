@@ -43,7 +43,7 @@ public class CustomerCheckIn extends javax.swing.JFrame {
         int count=0;
         try
         {
-            ResultSet rs=Select.getData("select *from room where bed='"+bed+"' and roomType='"+roomType+"' and status='Not Booked'");
+            ResultSet rs=Select.getData("select *from room where bed like '"+bed+ "%"+ "' and roomType='"+roomType+"' and status='Not Booked'");
             while(rs.next())
             {
                 jComboBox4.addItem(rs.getString(1));
@@ -51,7 +51,7 @@ public class CustomerCheckIn extends javax.swing.JFrame {
             }
             System.out.println("count "+count);
             if(count == 0){
-                JOptionPane.showMessageDialog(null, "cannot be found");
+                JOptionPane.showMessageDialog(null, "Room does not exist");
             }
         }
         catch(Exception e)
@@ -242,6 +242,7 @@ public class CustomerCheckIn extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(891, 504, 111, -1));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/all pages background.png"))); // NOI18N
+        jLabel14.setText("jLabel14");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 600));
 
         pack();
@@ -303,6 +304,10 @@ public class CustomerCheckIn extends javax.swing.JFrame {
         String Query="select max(id) from customer";
         try
         {
+            if(name.equals("") || phoneNumber.equals("") || nationality.equals("") || gender.equals("") || email.equals("") || idProof.equals("") || address.equals("") || checkIn.equals("") || bed.equals("") || roomType.equals("") || roomNumber.equals("") || price.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Every Field is Required");
+        }else{
             ResultSet rs=Select.getData(Query);
             while(rs.next())
             {
@@ -319,6 +324,7 @@ public class CustomerCheckIn extends javax.swing.JFrame {
                     new CustomerCheckIn().setVisible(true);
                 }
             }
+        }
         }
         catch(Exception e)
         {

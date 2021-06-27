@@ -125,7 +125,7 @@ public class CustomerCheckOut extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Phone Number", "Nationality", "Genderl", "Email", "ID Proof", "Address", "CheckIn Date", "Room Numberl", "Bed", "Room Type", "Price Per Day"
+                "ID", "Name", "Phone Number", "Nationality", "Gender", "Email", "ID Proof", "Address", "CheckIn Date", "Room Numberl", "Bed", "Room Type", "Price Per Day"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

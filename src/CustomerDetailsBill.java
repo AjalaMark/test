@@ -167,6 +167,7 @@ public class CustomerDetailsBill extends javax.swing.JFrame {
         int index=jTable1.getSelectedRow();
         TableModel model=jTable1.getModel();
         String id=model.getValueAt(index, 0).toString();
+        System.out.println(id);
         try
         {
             if((new File("D:\\"+id+".pdf")).exists())
@@ -184,6 +185,17 @@ public class CustomerDetailsBill extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, e);
         }
+        
+         try 
+            {
+                InsertUpdateDelete.setData("delete from customer where id="+id, "customer has been checked out");
+                setVisible(false);
+                new CustomerDetailsBill().setVisible(true);
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e);
+            }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
